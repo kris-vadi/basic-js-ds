@@ -77,19 +77,19 @@ class BinarySearchTree {
   }
 
   remove(data) {
-    this.nodeRoot = removeNode(this.nodeRoot, data)
+    this.nodeRoot = removeNode(this.nodeRoot, data);
 
     function removeNode(node, data) {
       if (!node) {
         return null;
       }
 
-      if (data < node.data) {
+      if (data > node.data) {
         node.right = removeNode(node.right, data);
         return node;
       }
 
-      if (data > node.data) {
+      if (data < node.data) {
         node.left = removeNode(node.left, data);
         return node;
       }
@@ -99,19 +99,19 @@ class BinarySearchTree {
       }
 
       if (!node.left) {
-        return node.right;
+        node = node.right;
+        return node;
       }
 
       if (!node.right) {
-        return node.left;
+        node = node.left;
+        return node;
       }
 
       let maxLeft = node.left;
-
       while(maxLeft.right) {
         maxLeft = maxLeft.right;
       }
-
       node.data = maxLeft.data;
       node.left = removeNode(node.left, maxLeft.data);
 
